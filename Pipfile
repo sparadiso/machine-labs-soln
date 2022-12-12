@@ -8,8 +8,11 @@ scipy = "*"
 numpy = "*"
 matplotlib = "*"
 scikit-learn = "*"
+pandas = "*"
 
 [dev-packages]
+pytest = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.8"
