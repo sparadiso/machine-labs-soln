@@ -1,4 +1,4 @@
-from soln.data_loader import load_data
+from soln.data_loader import load
 
 
 def test_load_csv_df():
@@ -6,7 +6,7 @@ def test_load_csv_df():
     Basic data loader tests.
     """
 
-    df = load_data("Test1.csv", False)
+    df = load("Test1.csv", raw=True)
 
     # Make sure nothing has shifted under our feet wrt the Test1.csv input
     assert len(df.index) == 20091, \
@@ -14,7 +14,7 @@ def test_load_csv_df():
 
 
 def test_clean_and_enrich():
-    df = load_data("Test1.csv", True)
+    df = load("Test1.csv")
 
     # Make sure nothing has shifted under our feet wrt the Test1.csv input
     # This is sensitive to the thresholds used in trim_start/trim_end
@@ -28,3 +28,7 @@ def test_clean_and_enrich():
     # Make sure we have the total magnitude columns we expect
     assert "f1_magnitude" in df.columns and "f2_magnitude" in df.columns, \
         "Missing force magnitude columns"
+
+    # Make sure we have the derivative columns we expect
+    assert all([f"d{x}_enc_1" in df.columns for x in ['x', 'y', 'z']]), \
+        "Missing derivative columns"
