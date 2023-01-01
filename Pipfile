@@ -10,6 +10,8 @@ matplotlib = "*"
 scikit-learn = "*"
 pandas = "*"
 jupyter = "*"
+torch = "*"
+pyvista = "*"
 
 [dev-packages]
 pytest = "*"
