@@ -27,6 +27,20 @@ def add_space_derivatives(df, fields=['x_enc_1', 'y_enc_1', 'z_enc_1']):
     for field in fields:
         df['d' + field] = df[field].rolling(2).apply(avg_gradient)
 
+    # Trim the first row (with no gradient information)
+    return df.iloc[1:]
+
+
+@operate_on_copy
+def add_arm_distance(df, fields=['x_enc_1', 'y_enc_1', 'z_enc_1']):
+    """
+    Add a feature for the x, y, and z distance between the robot arms
+    at each time step.
+    """
+
+    for x in ['x', 'y', 'z']:
+        df['R12_d' + x] = df['{}_enc_1'.format(x)] - df['{}_enc_2'.format(x)]
+
     return df
 
 
@@ -42,5 +56,17 @@ def add_force_magnitudes(df):
         z = df[f"fz_{idx}"]
 
         df[f"f{idx}_magnitude"] = (x*x + y*y + z*z).map(np.sqrt)
+
+    return df
+
+
+@operate_on_copy
+def add_deformation_force(df):
+    """
+    Add a column for the R1 + R2 force (negate the opposing robot force).
+    """
+
+    for coord in ['x', 'y', 'z']:
+        df[f"f{coord}_deformation"] = df[f"f{coord}_1"] + df[f"f{coord}_2"]
 
     return df

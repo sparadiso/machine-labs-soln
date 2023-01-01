@@ -18,8 +18,8 @@ def test_clean_and_enrich():
 
     # Make sure nothing has shifted under our feet wrt the Test1.csv input
     # This is sensitive to the thresholds used in trim_start/trim_end
-    assert len(df.index) == 19848, \
-        "Expected 19848 rows, got {}".format(len(df.index))
+    assert len(df.index) == 19847, \
+        "Expected 19847 rows, got {}".format(len(df.index))
 
     # Make sure the trace is trimmed
     assert df.iloc[0]['fz_1'] > 500

@@ -1,7 +1,10 @@
 import pandas as pd
 
 from soln.features import operate_on_copy
-from soln.features import add_space_derivatives, add_force_magnitudes
+from soln.features import add_deformation_force
+from soln.features import add_space_derivatives
+from soln.features import add_force_magnitudes
+from soln.features import add_arm_distance
 
 
 def load(csv_fname, raw=False):
@@ -17,7 +20,9 @@ def load(csv_fname, raw=False):
     return df.pipe(trim_start)\
              .pipe(trim_end)\
              .pipe(add_force_magnitudes)\
-             .pipe(add_space_derivatives)
+             .pipe(add_space_derivatives)\
+             .pipe(add_deformation_force)\
+             .pipe(add_arm_distance)
 
 
 @operate_on_copy
