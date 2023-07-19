@@ -1,6 +1,6 @@
 # machine_learning_hw: Take-home ML project
 ## Objective
-Build a model to predict forces experienced by Robots in the system.
+Build a model to predict forces experienced by robots in the system.
 
 ## Context
 At Machina Labs we use a Robotic Manufacturing System to form metal sheets into desired geometries. The manufacturing cell uses two opposing robots R1 and R2, applying pressure onto a metal sheet to deform it. The robots move along a path that allows the system to give shape to the metal sheet.
