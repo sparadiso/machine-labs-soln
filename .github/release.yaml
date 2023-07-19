@@ -1,0 +1,21 @@
+# .github/release.yml
+
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+  categories:
+    - title: Breaking Changes 🛠
+      labels:
+        - Semver-Major
+        - breaking-change
+    - title: New Features 🎉
+      labels:
+        - Semver-Minor
+        - enhancement
+    - title: Performance 🏎️
+      labels:
+        - performance 
+    - title: Other Changes
+      labels:
+        - "*"
