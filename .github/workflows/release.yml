@@ -18,6 +18,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Get tags
+        run: git fetch --tags origin
+
       - name: 'Build Changelog'
         id: build_changelog
         uses: mikepenz/release-changelog-builder-action@v4
