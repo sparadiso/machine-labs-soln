@@ -6,20 +6,26 @@ on:
     - cron: '0/5 * * * *'
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      deployments: write
+      pull-requests: read
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Build
-        run: echo ${{ github.sha }} > Release.txt
-      - name: Test
-        run: cat Release.txt
-      - name: Release
+      - name: 'Build Changelog'
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v4
+        with:
+            token: '${{ github.token }}'
+
+      - name: Create GitHub release
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
           tag_name: engine_${{ github.sha }}
-          generate_release_notes: true
+          body: ${{steps.build_changelog.outputs.changelog}}
           files: |
             Release.txt
